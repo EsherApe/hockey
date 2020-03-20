@@ -1,0 +1,86 @@
+/* Table of contents
+––––––––––––––––––––––––––––––––––––––––––––––––––
+0.0 Variables
+1.0 Typography
+2.0 Additional Classes
+3.0 Main
+*/
+/*
+
+bootstrap
+___________________________________________________*/
+@import "bootstrap-overwrites";
+@import "bootstrap";
+@import "slick-overwrites";
+/*
+
+slick-carousel
+___________________________________________________*/
+@import "../../bower_components/slick-carousel/slick/slick.scss";
+@import "../../bower_components/slick-carousel/slick/slick-theme.scss";
+/*
+
+fullcalendar
+___________________________________________________*/
+@import "../../bower_components/fullcalendar/dist/core/main";
+@import "../../bower_components/fullcalendar/dist/daygrid/main";
+/* 0.0 Variables
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+@import "variables";
+/* 1.0 Typography
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+@import "typography";
+/*2.0 Additional classes
+--------------------------------------------*/
+@import "helpers";
+
+/* 3.0 Main
+--------------------------------------------*/
+
+.main {
+  overflow: hidden;
+  &--bg {
+    background-image: url("../img/main/main-page__bg.png");
+    background-repeat: no-repeat;
+    background-size: 87.5%;
+  }
+  &__iishf {
+    .navbar {
+      .nav-link {
+        color: #fff!important;
+      }
+    }
+  }
+}
+
+html {
+  font-size: 10px;
+}
+
+body {
+  font-family: "Lato", sans-serif;
+  font-size: 1.6rem;
+  color: #333333;
+  position: relative;
+}
+
+@media (max-width: 1600px) {
+  html {
+    font-size: 8px;
+  }
+}
+
+@media (max-width: 1400px) {
+  html {
+    font-size: 6px;
+  }
+}
+
+@media (max-width: 1300px) {
+  html {
+    font-size: 6px;
+  }
+}
+
+@import "common/index";
+@import "pages/index";

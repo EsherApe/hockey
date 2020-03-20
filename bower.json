@@ -1,0 +1,20 @@
+{
+  "name": "hockey",
+  "main": "gulpfile.js",
+  "homepage": "",
+  "authors": [
+    "esherApe <andrew.bazilskiy@gmail.com>"
+  ],
+  "description": "",
+  "moduleType": [
+    "globals"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "bootstrap": "*",
+    "font-awesome": "*",
+    "jquery": "*",
+    "slick-carousel": "*",
+    "fullcalendar": "4.2.0"
+  }
+}
