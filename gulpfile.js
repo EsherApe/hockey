@@ -124,8 +124,7 @@ function watchFiles() {
 }
 
 const buildTask = gulp.series(clean, gulp.parallel(html, css, images, js, fonts));
-const watchTask = gulp.series(watchFiles, webserver);
-const defaultTask = gulp.series(buildTask, watchTask);
+const defaultTask = gulp.series(webserver, watchFiles);
 
 exports.IMG = images;
 exports.CSS = css;

@@ -36,8 +36,6 @@ document.addEventListener('DOMContentLoaded', function() {
         break;
     }
 
-    console.log(calendar);
-    console.log('asdasdasdasd');
     calendar.render();
 
 
