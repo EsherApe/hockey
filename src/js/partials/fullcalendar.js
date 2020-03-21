@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
   let calendar;
 
   const createCalendar = function (node, options) {
-    return new FullCalendar.Calendar(node,  {
+    calendar = new FullCalendar.Calendar(node,  {
       plugins: [ 'dayGrid' ],
       header: {
         left: '',
@@ -12,10 +12,12 @@ document.addEventListener('DOMContentLoaded', function() {
       },
       ...options
     });
+
+    return calendar;
   };
 
   // render tournament calendar on page load
-  calendar = createCalendar(calendarTournamentEl).render();
+  createCalendar(calendarTournamentEl).render();
   const tabHeight = $(calendarTournamentEl).height();
 
   const destroyCalendar = () => {
@@ -57,7 +59,6 @@ document.addEventListener('DOMContentLoaded', function() {
   };
 
   const showLoader = () => {
-    console.log();
     $('.lds-dual-ring').each((i, el) => {
       $(el).height(tabHeight).show();
     });
@@ -69,12 +70,13 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   };
 
+  // render new calendar on tabs switch
   $('a[data-calendar="tab"]').on('click', function (e) {
     const container = getEmptyCalendarContainer(e);
 
     showLoader();
 
-    calendar = createCalendar(container);
+    createCalendar(container);
     renderCalendar(calendar);
   });
 });
