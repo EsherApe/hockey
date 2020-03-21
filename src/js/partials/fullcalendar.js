@@ -16,21 +16,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // render tournament calendar on page load
   calendar = createCalendar(calendarTournamentEl).render();
+  const tabHeight = $(calendarTournamentEl).height();
 
   const destroyCalendar = () => {
     calendar && calendar.destroy();
-  };
-
-  const showLoader = () => {
-    $('.lds-dual-ring').each((i, el) => {
-      $(el).show();
-    });
-  };
-
-  const hideLoader = () => {
-    $('.lds-dual-ring').each((i, el) => {
-      $(el).hide();
-    });
   };
 
   const clearContainer = (container) => {
@@ -44,26 +33,45 @@ document.addEventListener('DOMContentLoaded', function() {
     }, 200)
   };
 
-  const getEmptyContainer = (e) => {
+  const getTabPaneId = (e) => {
     const target = $(e.target);
-    let targetId;
+    let tabPaneId;
 
     if (target.is('span')) {
-      targetId = target.parent().attr("href");
+      tabPaneId = target.parent().attr("href");
     } else {
-      targetId = target.attr("href");
+      tabPaneId = target.attr("href");
     }
 
-    const container = document.querySelector(targetId + ' .calendar-container');
+    return tabPaneId
+  };
+
+  const getEmptyCalendarContainer = (e) => {
+    destroyCalendar();
+
+    const tabPaneId = getTabPaneId(e);
+    const container = document.querySelector(tabPaneId + ' .calendar-container');
     clearContainer(container);
 
     return container;
   };
 
-  $('a[data-calendar="tab"]').on('click', function (e) {
-    const container = getEmptyContainer(e);
+  const showLoader = () => {
+    console.log();
+    $('.lds-dual-ring').each((i, el) => {
+      $(el).height(tabHeight).show();
+    });
+  };
 
-    destroyCalendar();
+  const hideLoader = () => {
+    $('.lds-dual-ring').each((i, el) => {
+      $(el).hide();
+    });
+  };
+
+  $('a[data-calendar="tab"]').on('click', function (e) {
+    const container = getEmptyCalendarContainer(e);
+
     showLoader();
 
     calendar = createCalendar(container);
