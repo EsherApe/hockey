@@ -1,7 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-  const calendarTodayEl = document.getElementById('calendarToday');
   const calendarTournamentEl = document.getElementById('calendarTournament');
-  const calendarOtherEl = document.getElementById('calendarOther');
   let calendar;
 
   const createCalendar = function (node, options) {
@@ -35,6 +33,10 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   };
 
+  const clearContainer = (container) => {
+    $(container).empty();
+  };
+
   const renderCalendar = (calendar) => {
     return setTimeout(() => {
       hideLoader();
@@ -42,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }, 200)
   };
 
-  const getId = (e) => {
+  const getEmptyContainer = (e) => {
     const target = $(e.target);
     let targetId;
 
@@ -52,29 +54,19 @@ document.addEventListener('DOMContentLoaded', function() {
       targetId = target.attr("href");
     }
 
-    // $(targetId + ' .calendar-container');
+    const container = document.querySelector(targetId + ' .calendar-container');
+    clearContainer(container);
 
-    return targetId;
+    return container;
   };
 
   $('a[data-calendar="tab"]').on('click', function (e) {
-    showLoader();
-    destroyCalendar();
+    const container = getEmptyContainer(e);
 
-    switch (getId(e)) {
-      case '#pills-today':
-        calendar = createCalendar(calendarTodayEl);
-        renderCalendar(calendar);
-        break;
-      case '#pills-tournament':
-        $(calendarTournamentEl).empty();
-        calendar = createCalendar(calendarTournamentEl);
-        renderCalendar(calendar);
-        break;
-      case '#pills-other':
-        calendar = createCalendar(calendarOtherEl);
-        renderCalendar(calendar);
-        break;
-    }
+    destroyCalendar();
+    showLoader();
+
+    calendar = createCalendar(container);
+    renderCalendar(calendar);
   });
 });
