@@ -13,32 +13,68 @@ document.addEventListener('DOMContentLoaded', function() {
         right: ''
       },
       ...options
-    })
+    });
   };
 
+  // render tournament calendar on page load
   calendar = createCalendar(calendarTournamentEl).render();
 
-  $('a[data-toggle="pill"]').on('click', function (e) {
+  const destroyCalendar = () => {
     calendar && calendar.destroy();
-    let target = $(e.target).parent().attr("href");
+  };
 
-    console.log(target);
+  const showLoader = () => {
+    $('.lds-dual-ring').each((i, el) => {
+      $(el).show();
+    });
+  };
 
-    switch (target) {
-      case '#pills-home':
-        calendar = createCalendar(calendarTodayEl);
-        break;
-      case '#pills-profile':
-        calendar = createCalendar(calendarTournamentEl);
-        break;
-      case '#pills-contact':
-        calendar = createCalendar(calendarOtherEl);
-        break;
+  const hideLoader = () => {
+    $('.lds-dual-ring').each((i, el) => {
+      $(el).hide();
+    });
+  };
+
+  const renderCalendar = (calendar) => {
+    return setTimeout(() => {
+      hideLoader();
+      calendar.render();
+    }, 200)
+  };
+
+  const getId = (e) => {
+    const target = $(e.target);
+    let targetId;
+
+    if (target.is('span')) {
+      targetId = target.parent().attr("href");
+    } else {
+      targetId = target.attr("href");
     }
 
-    calendar.render();
+    // $(targetId + ' .calendar-container');
 
+    return targetId;
+  };
 
+  $('a[data-calendar="tab"]').on('click', function (e) {
+    showLoader();
+    destroyCalendar();
 
+    switch (getId(e)) {
+      case '#pills-today':
+        calendar = createCalendar(calendarTodayEl);
+        renderCalendar(calendar);
+        break;
+      case '#pills-tournament':
+        $(calendarTournamentEl).empty();
+        calendar = createCalendar(calendarTournamentEl);
+        renderCalendar(calendar);
+        break;
+      case '#pills-other':
+        calendar = createCalendar(calendarOtherEl);
+        renderCalendar(calendar);
+        break;
+    }
   });
 });
